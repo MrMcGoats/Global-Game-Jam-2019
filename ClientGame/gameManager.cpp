@@ -18,7 +18,11 @@
 #include <stdlib.h>
 #include "stdafx.h"
 #include "gameManager.hpp"
+#include "Screens/mainGame.hpp"
 
+GameScreen::GameScreen() {}
+
+void GameScreen::Start() {}
 
 void GameScreen::Stop()
 {
@@ -29,20 +33,8 @@ void GameScreen::Stop()
 	_objects.clear();
 }
 
-void GameScreen::Update(float dt)
-{
-	//Calculate Frame Rate
-	static int timeSinceLast=dt;
-	static int framesSinceLast=0;
-
-	framesSinceLast++;
-	if((dt-timeSinceLast)!=0) //if a second has passed
-	{
-		this->fr=framesSinceLast/(dt-timeSinceLast);
-		timeSinceLast=dt;
-	}
-
-}
+void GameScreen::Update(float dt) {}
+void GameScreen::Render() {}
 
 MainManager* MainManager::s_MainManager = NULL;
 
@@ -66,7 +58,7 @@ MainManager::MainManager()
 	theSwitchboard.SubscribeTo(this, "btnHit12");//right-most
 	theSwitchboard.SubscribeTo(this, "btnHit13");//middle button 
 
-	//_screens.push_back(new DemoScreenStart());							// 0
+	_screens.push_back(new MainGameScreen());							// 0
 
 	unsigned int startingIndex = 0;
 	if (_screens.size() > startingIndex)

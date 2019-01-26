@@ -37,10 +37,10 @@ public:
 
 protected:
 	std::vector<Renderable*> _objects;
-private:
-	int fr; //framerate
 };
 
+
+#define theGameManager MainManager::GetInstance()
 class MainManager : public GameManager
 {
 public:
