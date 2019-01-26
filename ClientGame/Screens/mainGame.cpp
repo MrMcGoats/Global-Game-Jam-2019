@@ -68,4 +68,48 @@ void MainGameScreen::Update(float dt)
 														 // from -32768 to 32768
 	
 	Vec2i movementR = theController.GetRightThumbstick();
+
+	Vector2 position;
+	if (movementR.X)
+	{
+		// Scale the thumbstick down to reasonable proportions and make the range of
+		//  movement 3
+		position.X = 3.0f * ((float)movementR.X / 32768.0f)+7;
+	}
+	else
+	{
+		position.X = 7.0f;
+	}
+	if (movementR.Y)
+	{
+		position.Y = 3.0f * ((float)movementR.Y / 32768.0f)-1;
+	}
+	else
+	{
+		position.Y = -1.0f;
+	}
+
+	
+	Vector2 position2;
+	if (movementL.X)
+	{
+		// Scale the thumbstick down to reasonable proportions and make the range of
+		//  movement 3
+		position2.X = 3.0f * ((float)movementL.X / 32768.0f)-7;
+	}
+	else
+	{
+		position2.X = -7.0f;
+	}
+	if (movementL.Y)
+	{
+		position2.Y = 3.0f * ((float)movementL.Y / 32768.0f)-1;
+	}
+	else
+	{
+		position2.Y = -1.0f;
+	}
+
+	player2Arm->SetPosition(position2);
+	player1Arm->SetPosition(position);
 }

@@ -76,7 +76,8 @@ MainManager::MainManager()
 	// allow them to not specify it if they don't need the functionality.
 	theSound.SetSoundCallback(this, &GameManager::SoundEnded);
 
-	sample = theSound.LoadSample("Resources/Sounds/menu.wav", false /*no stream*/);
+	sample = theSound.LoadSample("Resources/Sounds/175bpm.wav", true /*no stream*/);
+	theSound.PlaySound(sample);
 }
 
 MainManager& MainManager::GetInstance()
@@ -139,34 +140,7 @@ void MainManager::hitButton()
 
 void MainManager::Render()
 {
-	glColor3f(0.5f, 0.5f, 0.5f);
-	char* infoString = "";
-	int xOffset = 0;
-	if (_current == 0)
-	{
-		infoString = "[A/Space]: Next";
-		xOffset = 887;
-	}
-	else if (_current == _screens.size() - 1)
-	{
-		infoString = "[Back/Minus]: Previous";
-		xOffset = 824;
-	}
-	else
-	{
-		infoString = "[A/Space]: Next [Back/Minus]: Previous";
-		xOffset = 680;
-	}
-
-	int yOffset = 763;
-	if (theWorld.IsHighResScreen())
-	{
-		// the perils of using pixel coordinates in a post-retina world
-		xOffset *= 2;
-		yOffset *= 2;
-	}
-
-	DrawGameText(infoString, "ConsoleSmall", xOffset, yOffset);
+	//theSound.PlaySample(sample);
 }
 
 void MainManager::SoundEnded(AngelSoundHandle sound)
@@ -174,5 +148,6 @@ void MainManager::SoundEnded(AngelSoundHandle sound)
 	// Detect sounds that have ended here.
 	// round ends 2.5 seconds after the song ends. 
 	// do this by counting frames, calculate framerate in update
+	theWorld.Destroy();
 	
 }
