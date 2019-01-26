@@ -1,0 +1,3 @@
+[submodule "angel2d"]
+	path = angel2d
+	url = https://github.com/angel2d/angel2d.git
