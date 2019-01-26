@@ -54,7 +54,9 @@ SYSSRCS = 							\
 
 SRCS =								\
 	stdafx.cpp						\
-	Main.cpp
+	Main.cpp                                                \
+	gameManager.cpp   					\
+
 
 SYSOBJS = $(patsubst %.cpp,%.o,$(SYSSRCS))
 OBJS = $(patsubst %.cpp,%.o,$(SRCS))
