@@ -19,6 +19,7 @@
 #include "stdafx.h"
 #include "gameManager.hpp"
 #include "Screens/mainGame.hpp"
+#include "Screens/menu.hpp"
 
 GameScreen::GameScreen() {}
 
@@ -29,6 +30,20 @@ void GameScreen::Stop()
 	std::vector<Renderable*>::iterator it = _objects.begin();
 	while(_objects.end() != it)
 	{
+		// we're pre-destroying physics bodies here because it 
+		//  can mess with the pathfinding regeneration.
+		PhysicsActor* pa = dynamic_cast<PhysicsActor*> (*it);
+		if (pa != NULL)
+		{
+			if (pa->GetBody() != NULL)
+			{
+				pa->GetBody()->SetUserData(NULL);
+				theWorld.GetPhysicsWorld().DestroyBody(pa->GetBody());
+				pa->ResetBody();
+			}
+		}
+		(*it)->Destroy();
+		it++;
 	}
 	_objects.clear();
 }
@@ -58,7 +73,14 @@ MainManager::MainManager()
 	theSwitchboard.SubscribeTo(this, "btnHit12");//right-most
 	theSwitchboard.SubscribeTo(this, "btnHit13");//middle button 
 
-	_screens.push_back(new MainGameScreen());							// 0
+	theSwitchboard.SubscribeTo(this, "leftSmash");
+	theSwitchboard.SubscribeTo(this, "rightSmash");
+
+	_screens.push_back(new MenuScreen());
+	_screens.push_back(new MainGameScreen());
+
+	leftReady=false;
+	rightReady=false;
 
 	unsigned int startingIndex = 0;
 	if (_screens.size() > startingIndex)
@@ -76,7 +98,7 @@ MainManager::MainManager()
 	// allow them to not specify it if they don't need the functionality.
 	theSound.SetSoundCallback(this, &GameManager::SoundEnded);
 
-	sample = theSound.LoadSample("Resources/Sounds/175bpm.wav", true /*no stream*/);
+	sample = theSound.LoadSample("Resources/Sounds/175bpm.wav", false /*no stream*/);
 	theSound.PlaySound(sample);
 }
 
@@ -148,6 +170,19 @@ void MainManager::SoundEnded(AngelSoundHandle sound)
 	// Detect sounds that have ended here.
 	// round ends 2.5 seconds after the song ends. 
 	// do this by counting frames, calculate framerate in update
-	theWorld.Destroy();
-	
+	//theWorld.Destroy();
+	if(_current!=0) nextScreen();
+}
+
+void MainManager::nextScreen()
+{
+	rightReady=false;
+	leftReady=false;
+
+	_screens[_current]->Stop();
+	theWorld.Remove(_screens[_current]);
+	if(_current==1) _current=0;
+	else _current=1;
+	_screens[_current]->Start();
+	theWorld.Add(_screens[_current]);
 }

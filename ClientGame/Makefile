@@ -58,6 +58,7 @@ SRCS =								\
 	Main.cpp                                                \
 	gameManager.cpp   					\
 	Screens/mainGame.cpp                                    \
+	Screens/menu.cpp
 
 
 

@@ -25,46 +25,59 @@
 
 class GameScreen: public Renderable
 {
-public:
-	GameScreen();
+	public:
+		GameScreen();
 
-	virtual void Start();
-	virtual void Stop(); //calls remove on all _objects and deletes them
-	virtual void Update(float dt);
-	virtual void Render();
-	
-	virtual void ReceiveMessage(Message *message) {}
+		virtual void Start();
+		virtual void Stop(); //calls remove on all _objects and deletes them
+		virtual void Update(float dt);
+		virtual void Render();
 
-protected:
-	std::vector<Renderable*> _objects;
+		std::string toggleReadyLeft() {}
+		std::string toggleReadyRight() {}
+
+
+		virtual void ReceiveMessage(Message *message) {}
+
+	protected:
+		std::vector<Renderable*> _objects;
 };
 
 
 #define theGameManager MainManager::GetInstance()
 class MainManager : public GameManager
 {
-public:
+	public:
 
-	static MainManager &GetInstance();
-	
-	GameScreen* GetCurrentScreen();
-	
-	virtual void Render();
+		static MainManager &GetInstance();
 
-	virtual void SoundEnded(AngelSoundHandle sound);
+		GameScreen* GetCurrentScreen();
 
-	virtual void ReceiveMessage(Message* message);
+		virtual void Render();
 
-	void hitButton();
-	
-protected:
-	MainManager();
-	static MainManager *s_MainManager;
+		virtual void SoundEnded(AngelSoundHandle sound);
 
-private:
-	std::vector<GameScreen*> _screens;
-	int _current;
-	AngelSampleHandle sample;
+		virtual void ReceiveMessage(Message* message);
+
+		void hitButton();
+
+		void nextScreen();
+
+		std::string leftSprite;
+		std::string rightSprite;
+		bool leftReady;
+		bool rightReady;
+	protected:
+		MainManager();
+		static MainManager *s_MainManager;
+
+	private:
+		std::vector<GameScreen*> _screens;
+		int _current;
+		AngelSampleHandle sample;
+
+
+
 };
 
 #endif //__GAMEMANAGER_HPP

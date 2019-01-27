@@ -3,12 +3,24 @@
 //#include "gameManager.hpp"
 #include "mainGame.hpp"
 
+void MainGameScreen::genSongs()
+{
+	srand(time(NULL));
+	for(int i=0;i<180;i++)
+	{
+		if(i%2==0) song1[i]=-1;
+		else song1[i]=rand()%6;
+	}
+}
+
 MainGameScreen::MainGameScreen()
 {
 }
 
 void MainGameScreen::Start()
 {
+	this->genSongs();
+
 	player1=new Actor();
 	player1Arm=new Actor();
 	player2=new Actor();
@@ -18,36 +30,64 @@ void MainGameScreen::Start()
 	{
 		buttons[i]=new Actor();
 		buttons[i]->SetDrawShape(ADS_Circle);
-		buttons[i]->SetColor(i*0.1,i*0.2,i*0.3);
-		buttons[i]->SetPosition(i,i);
-		theWorld.Add(buttons[i]);
+		buttons[i]->SetColor(0,0,0);
+		buttons[i]->SetSize(1.3);
+	}
+
+	buttons[0]->SetPosition(3,-2);
+	for(int i=1;i<5;i++)
+		buttons[i]->SetPosition((3+i*1.4),2.5);
+	buttons[5]->SetPosition(10,-2);
+
+	buttons[6]->SetPosition(6.5,-5);
+	buttons[6]->SetSize(3);
+	buttons[13]->SetPosition(-6.5,-5);
+	buttons[13]->SetSize(3);
+
+	buttons[7]->SetPosition(-3,-2);
+	for(int i=8;i<12;i++)
+		buttons[i]->SetPosition(-(1+i*1.4)+7.8,2.5);
+	buttons[12]->SetPosition(-10,-2);
+
+	buttons[13]->LoadSpriteFrames("Resources/Images/Skelly/button/skelly_button_001.png");
+
+	for(int i=0;i<14;i++)
+	{
+		theWorld.Add(buttons[i],2);
 		_objects.push_back(buttons[i]);
 	}
 
 	player1->SetDrawShape(ADS_Square);
-	player1->SetColor(1,0,1);
-	player1->SetPosition(7,-3);
-	player1->SetSize(2,3);
+	player1->SetColor(1,1,1);
+	player1->SetPosition(6.5,-3);
+	player1->SetSize(5,6);
 	player1Arm->SetDrawShape(ADS_Square);
-	player1Arm->SetColor(1,0,1);
-	player1Arm->SetPosition(7,-1);
+	player1Arm->SetColor(1,1,1);
+	player1Arm->SetPosition(6.5,-1);
+	player1Arm->SetSize(2,4);
+
+	player1->LoadSpriteFrames(theGameManager.rightSprite);
+	player1Arm->LoadSpriteFrames("Resources/Images/becky_arm_vertical.png");
 
 	theWorld.Add(player1);
-	theWorld.Add(player1Arm);
+	theWorld.Add(player1Arm,3);
 
 	_objects.push_back(player1);
 	_objects.push_back(player1Arm);
 
 	player2->SetDrawShape(ADS_Square);
-	player2->SetColor(1,0,0);
-	player2->SetPosition(-7,-3);
-	player2->SetSize(2,3);
+	player2->SetColor(1,1,1);
+	player2->SetPosition(-6.5,-3);
+	player2->SetSize(5,6);
 	player2Arm->SetDrawShape(ADS_Square);
-	player2Arm->SetColor(1,0,0);
-	player2Arm->SetPosition(-7,-1);
+	player2Arm->SetColor(1,1,1);
+	player2Arm->SetPosition(-6.5,-1);
+	player2Arm->SetSize(2,4);
 
-	theWorld.Add(player2);
-	theWorld.Add(player2Arm);
+	player2->LoadSpriteFrames(theGameManager.leftSprite);
+
+	theWorld.Add(player2,1);
+	theWorld.Add(player2Arm,3);
 
 	_objects.push_back(player2);
 	_objects.push_back(player2Arm);
@@ -61,6 +101,15 @@ void MainGameScreen::Update(float dt)
 	//  thumbsticks both at center, triggers untouched, no vibration.)
 	if (!theController.IsConnected())
 		return;
+
+	static int frames=0;
+	if(frames>5)
+	{
+		player1->SetSpriteFrame((player1->GetSpriteFrame()+1)%2);
+		player2->SetSpriteFrame((player2->GetSpriteFrame()+1)%3);
+		frames=0;
+	}
+	frames++;
 
 	//Update position based on thumbstick
 	Vec2i movementL = theController.GetLeftThumbstick(); //returns a 2d integer vector
@@ -78,7 +127,7 @@ void MainGameScreen::Update(float dt)
 	}
 	else
 	{
-		position.X = 7.0f;
+		position.X = 6.5f;
 	}
 	if (movementR.Y)
 	{
@@ -99,7 +148,7 @@ void MainGameScreen::Update(float dt)
 	}
 	else
 	{
-		position2.X = -7.0f;
+		position2.X = -6.5f;
 	}
 	if (movementL.Y)
 	{

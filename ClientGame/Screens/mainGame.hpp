@@ -17,4 +17,8 @@ private:
 	Actor *player2;
 	Actor *player2Arm;
 	Actor *buttons[14];
+
+	int song1[180];
+
+	void genSongs();
 };
