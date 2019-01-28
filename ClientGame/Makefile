@@ -2,7 +2,7 @@ ANGEL_DISABLE_FMOD := $(shell sed -rn 's/^[[:space:]]*\#define[[:space:]]+ANGEL_
 ANGEL_DISABLE_DEVIL := $(shell sed -rn 's/^[[:space:]]*\#define[[:space:]]+ANGEL_DISABLE_DEVIL[[:space:]]+([[:digit:]])[[:space:]]*$$/\1/p' ../Angel/AngelConfig.h)
 CXX = g++
 TARGET = ClientGame
-ANGEL_FLAGS = -D ANGEL_RELEASE
+ANGEL_FLAGS = -D ANGEL_RELEASE -g
 ARCH := $(shell uname -m)
 ALLEGRO_LIBS := $(shell allegro-config --libs 2>/dev/null)
 CWD := $(shell pwd)
@@ -58,8 +58,8 @@ SRCS =								\
 	Main.cpp                                                \
 	gameManager.cpp   					\
 	Screens/mainGame.cpp                                    \
-	Screens/menu.cpp
-
+	Screens/menu.cpp                                        \
+	Screens/title.cpp
 
 
 SYSOBJS = $(patsubst %.cpp,%.o,$(SYSSRCS))

@@ -18,7 +18,26 @@ private:
 	Actor *player2Arm;
 	Actor *buttons[14];
 
+	int curr_note;
+
+	TextActor *rightScoreText;
+	TextActor *leftScoreText;
+
+	int leftHit;
+	int rightHit;
+
+	bool leftSmash;
+	bool rightSmash;
+
+	int leftScore;
+	int rightScore;
+
+	int leftMul;
+	int rightMul;
+
 	int song1[180];
 
 	void genSongs();
+	void checkLeftHit(Vector2);
+	void checkRightHit(Vector2);
 };

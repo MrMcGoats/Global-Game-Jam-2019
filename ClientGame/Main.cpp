@@ -13,17 +13,11 @@ int main(int argc, char* argv[])
 	//		bool antiAliasing		default: false
 	//		bool fullScreen			default: false
 	//		bool resizable			default: false
-	theWorld.Initialize(1024,768,"Game");
+	theWorld.Initialize(1024,768,"Button Smashers");
 
-	RegisterFont("Resources/Fonts/PermanentMarker-Regular.ttf", 20, "Marker20");
-	RegisterFont("Resources/Fonts/Quantico-Bold.ttf", 12, "Score12");
+	RegisterFont("Resources/Fonts/PermanentMarker-Regular.ttf", 50, "Marker20");
+	RegisterFont("Resources/Fonts/Quantico-Bold.ttf", 50, "Score12");
 	
-	//adds the default grid so you can more easily place Actors
-	Actor *bg=new Actor();
-	bg->LoadSpriteFrames("Resources/Images/background_temp_001.png");
-	bg->SetSize(27,20);
-	theWorld.Add(bg, -1);
-
 	//YOUR GAME SETUP CODE HERE
 	
 	theWorld.SetGameManager(&theGameManager);

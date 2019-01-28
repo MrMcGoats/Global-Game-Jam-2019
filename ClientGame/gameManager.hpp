@@ -63,10 +63,12 @@ class MainManager : public GameManager
 
 		void nextScreen();
 
-		std::string leftSprite;
-		std::string rightSprite;
+		int leftSprite;
+		int rightSprite;
 		bool leftReady;
 		bool rightReady;
+
+		Actor *bg;
 	protected:
 		MainManager();
 		static MainManager *s_MainManager;
@@ -74,7 +76,12 @@ class MainManager : public GameManager
 	private:
 		std::vector<GameScreen*> _screens;
 		int _current;
-		AngelSampleHandle sample;
+		AngelSampleHandle game;
+		AngelSampleHandle game_p;
+		AngelSampleHandle game1;
+		AngelSampleHandle menu;
+		AngelSampleHandle menu_p;
+
 
 
 

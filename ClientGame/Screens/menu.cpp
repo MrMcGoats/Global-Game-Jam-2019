@@ -41,8 +41,8 @@ void MenuScreen::Start()
 	theWorld.Add(leftReady);
 	theWorld.Add(rightReady);
 
-	becky1->LoadSpriteFrames("Resources/Images/becky_sprite_normal/beck_norm_001.bmp");
-
+	becky1->LoadSpriteFrames("Resources/Images/becky_sprite_normal/beck_norm_001.png");
+	becky2->LoadSpriteFrames("Resources/Images/becky_alt/becky_alt_001.png");
 	skelly1->LoadSpriteFrames("Resources/Images/Skelly/headbob/skelly_bob_001.png");
 	skelly2->LoadSpriteFrames("Resources/Images/Skelly_alt/headbob/skelly_bob_001.png");
 
@@ -85,8 +85,8 @@ void MenuScreen::Update(float dt)
 
 	Vec2i movementR = theController.GetRightThumbstick();
 
-	bool stickL = theController.IsButtonDown(0x40);
-	bool stickR = theController.IsButtonDown(0x80);
+	bool stickL = theController.IsLeftThumbstickButtonDown() || theController.IsLeftTriggerPressed() || theController.IsLeftBumperDown();
+	bool stickR = theController.IsRightThumbstickButtonDown() || theController.IsRightTriggerPressed() || theController.IsRightBumperDown();
 
 
 	if(!theGameManager.leftReady)
@@ -166,8 +166,8 @@ void MenuScreen::toggleReadyLeft()
 
 	leftReady->SetColor(1,1,1);
 	if(leftSelect==0)
-		theGameManager.leftSprite="Resources/Images/becky_sprite_normal/beck_norm_001.bmp";
-	else theGameManager.leftSprite="Resources/Images/Skelly_alt/headbob/skelly_bob_001.png";
+		theGameManager.leftSprite=0;//"Resources/Images/becky_sprite_normal/beck_norm_001.png";
+	else theGameManager.leftSprite=1;//"Resources/Images/Skelly_alt/headbob/skelly_bob_001.png";
 	theGameManager.leftReady=true;
 }
 
@@ -178,8 +178,8 @@ void MenuScreen::toggleReadyRight()
 
 	rightReady->SetColor(1,1,1);
 	if(rightSelect==1)
-		theGameManager.rightSprite="Resources/Images/becky_sprite_normal/beck_norm_001.bmp";
-	else theGameManager.rightSprite="Resources/Images/Skelly/headbob/skelly_bob_001.png";
+		theGameManager.rightSprite=0;//"Resources/Images/becky_sprite_normal/beck_norm_001.png";
+	else theGameManager.rightSprite=1;//"Resources/Images/Skelly/headbob/skelly_bob_001.png";
 
 	theGameManager.rightReady=true;
 }
