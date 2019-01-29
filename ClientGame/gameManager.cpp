@@ -163,7 +163,11 @@ void MainManager::nextScreen()
 	{
 		theSound.StopSound(game_p); //probably already stopped, but just in case
 		menu_p=theSound.PlaySound(menu);
-		_current=1;
+		bg=new Actor();
+		bg->LoadSpriteFrames("Resources/Images/intro/intro_background_001.png");
+		bg->SetSize(27,20);
+		theWorld.Add(bg, -1);
+		_current=0;
 	}
 	else if(_current==1)
 	{

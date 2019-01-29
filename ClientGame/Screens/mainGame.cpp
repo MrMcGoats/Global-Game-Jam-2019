@@ -167,7 +167,7 @@ void MainGameScreen::Update(float dt)
 				player1->LoadSpriteFrames("Resources/Images/becky_btn/becky_btn_001.png");
 			} else if(theGameManager.leftSprite==1)
 			{
-				player1->LoadSpriteFrames("Resources/Images/Skelly/headbob/skelly_bob_001.png");
+				player1->LoadSpriteFrames("Resources/Images/Skelly/headbob_btn/skelly_bob_001.png");
 			}
 			player1->SetSpriteFrame((player1->GetSpriteFrame()+1)%2);
 		} else
@@ -182,7 +182,7 @@ void MainGameScreen::Update(float dt)
 				player2->LoadSpriteFrames("Resources/Images/becky_alt_btn/becky_alt_btn_001.png");
 			} else if(theGameManager.rightSprite==1)
 			{
-				player2->LoadSpriteFrames("Resources/Images/Skelly_alt/headbob/skelly_bob_001.png");
+				player2->LoadSpriteFrames("Resources/Images/Skelly_alt/headbob_btn/skelly_bob_001.png");
 			}
 			player2->SetSpriteFrame((player2->GetSpriteFrame()+1)%2);
 		}
@@ -295,7 +295,7 @@ void MainGameScreen::Update(float dt)
 		if(theGameManager.rightSprite==0)
 			player1->LoadSpriteFrames("Resources/Images/becky_smash/becky_smash_001.png");
 		else if(theGameManager.rightSprite==1)
-			player1->LoadSpriteFrames("Resources/Images/Skelly_alt/headbob/skelly_bob_001.png");
+			player1->LoadSpriteFrames("Resources/Images/Skelly/final_smash/skelly_smash_001.png");
 
 		if(theGameManager.leftSprite==0)
 			player2->LoadSpriteFrames("Resources/Images/becky_alt_panic/becky_alt_panic_001.png");
@@ -310,7 +310,7 @@ void MainGameScreen::Update(float dt)
 		if(theGameManager.leftSprite==0)
 			player2->LoadSpriteFrames("Resources/Images/becky_alt_btn/becky_alt_btn_001.png");
 		else if(theGameManager.leftSprite==1)
-			player2->LoadSpriteFrames("Resources/Images/Skelly_alt/headbob/skelly_bob_001.png");
+			player2->LoadSpriteFrames("Resources/Images/Skelly_alt/headbob_btn/skelly_bob_001.png");
 
 		if(theGameManager.rightSprite==0)
 			player1->LoadSpriteFrames("Resources/Images/becky_btn/becky_btn_001.png");
